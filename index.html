@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PDF.js viewer</title>
+    <script src="pdf.js"></script>
+    <script src="svg.js"></script>
+    <script src="mapping.js"></script>
+    <script src="item_effects.js"></script>
+
+    <style>
+    body,html,*{
+      padding:0;
+      margin: 0;
+      cursor: crosshair !important;
+    }
+    body{
+/*      transform-origin: 50vh 50vh;
+      transform: rotate(-90deg);*/
+/*      width: 3200px;
+      height: 1080px;*/
+      overflow: hidden;
+    }
+    </style>
+  </head>
+
+  <body>
+    <textarea id=messages></textarea>
+
+    <object id=map width=1920 data="cl-map.svg" type="image/svg+xml"></object>
+    <script>
+      var svg=null;
+      
+      var ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
+      var messages=document.getElementById('messages');
+      ws.addEventListener('message',function(msg){
+        messages.value+=msg.data+"\n";
+        var data=JSON.parse(msg.data);
+        if(data.type=='Dial')
+        {
+          var from=data.caller.caller.number;
+          svg.select('#phone-'+from).show();
+
+          var to  =data.peer.caller.number;
+          svg.select('#phone-'+to  ).show();
+
+          console.log('From '+from+' to '+to);
+        }
+        if(data.type=='ChannelHangupRequest')
+        {
+          var from=data.channel.caller.number;
+          svg.select('#phone-'+from).hide();
+
+          var to  =data.channel.connected.number;
+          svg.select('#phone-'+to  ).hide();
+
+          console.log('From '+from+' to '+to);
+        }
+      });
+ 
+
+    window.addEventListener('load',function(){
+      svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
+      svg.select('ellipse').hide();
+    });
+    </script>
+  </body>
+</html>
