@@ -12,6 +12,6 @@ CMDS+=`echo "$EXTS" | sed 's/.*/Action: DBGet\nFamily: ext\nKey: \0\n/'`
 
 # echo "$CMDS"
 
-EXTS_TO_IDS=`(tail -n 10000  -f  <(echo "$CMDS") | timeout 2 telnet 192.168.179.2 5038) | sed  -E '/Key.*/{N;s/Key: (.*)\nVal: (.*)/"2\1":"\2",/;/Key:/!P};d'`
+IDS_TO_EXTS=`(tail -n 10000  -f  <(echo "$CMDS") | timeout 2 telnet 192.168.179.2 5038) | sed  -E '/Key.*/{N;s/Key: (.*)\nVal: (.*)/"\2":"2\1",/;/Key:/!P};d'`
 
-echo "{$EXTS_TO_IDS}"
+echo "ids_to_exts={$IDS_TO_EXTS};" | tee ids_to_exts.js
