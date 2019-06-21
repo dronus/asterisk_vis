@@ -52,9 +52,10 @@
           var o1=svg.select('#phone-'+from).show().members[0];
           var o2=svg.select('#phone-'+to  ).show().members[0];
 
+          if(o1.members.length==0 || o2.members.length==0) return;
           
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
-          line.stroke({ color: '#00ff00', width: 1, linecap: 'round' });
+          line.stroke({ color: '#ffffff', width: 1, linecap: 'round' });
 
           console.log('From '+from+' to '+to);
         }
@@ -63,9 +64,11 @@
           var from=data.channel.caller.number;
           var to  =data.channel.connected.number;
 
-          var o1=svg.select('#phone-'+from).style('fill','#00ff00').members[0];
-          var o2=svg.select('#phone-'+to  ).style('fill','#00ff00').members[0];
+          var o1=svg.select('#phone-'+from).style('fill','#ffffff').members[0];
+          var o2=svg.select('#phone-'+to  ).style('fill','#ffffff').members[0];
           
+          if(!o1 || !o2) return;
+
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
           line.stroke({ color: '#f06', width: 3, linecap: 'round' });
 
@@ -78,8 +81,8 @@
           if(!from) return;
           var to  =data.channel.dialplan.exten;
 
-          svg.select('#phone-'+from).style('fill','#555555');
-          svg.select('#phone-'+to  ).style('fill','#555555');
+          svg.select('#phone-'+from).style('fill','#00ff00');
+          svg.select('#phone-'+to  ).style('fill','#00ff00');
 
           var lines=svg.select("#line_"+from+"_"+to);
           for(var line of lines.members) line.remove();
@@ -93,8 +96,29 @@
 
     window.addEventListener('load',function(){
       svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
-      svg.select('ellipse').style('fill','#55555599');
+      svg.select('ellipse').style('fill','#000000');
+      get_states();
     });
+
+    function get_states(){
+      var xmlHttp=new XMLHttpRequest();
+      xmlHttp.open('GET', 'http://192.168.179.2:8088/asterisk/ari/endpoints', true);
+      xmlHttp.onreadystatechange = function () {
+          if (xmlHttp.readyState == 4) {
+              var json=xmlHttp.responseText;
+              var devices=JSON.parse(json);
+              for(var device of devices){
+                console.log("Device "+device.resource+" "+device.state);
+                var ext=ids_to_exts[device.resource];
+                if(ext){
+                  svg.select('#phone-'+ext).style('fill',device.state=='online' ? '#00ff00' : (device.state=='unknown' ? '#ffff00' : '#ff0000'));
+                }
+              }
+          }
+      };
+      xmlHttp.send(null);
+    }
+
     </script>
   </body>
 </html>
