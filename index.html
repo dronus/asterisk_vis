@@ -2,7 +2,6 @@
   <head>
     <meta charset="utf-8">
     <title>Asterisk Connection Map</title>
-    <script src="pdf.js"></script>
     <script src="svg.js"></script>
     <style>
     body,html,*{
@@ -33,69 +32,80 @@
     <script>
       var svg=null; 
       var lines={};
-      
-      var ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
-      var messages=document.getElementById('messages');
-      ws.addEventListener('message',function(msg){
+
+      function message_handler(msg){
         messages.value+=msg.data+"\n";
         var data=JSON.parse(msg.data);
         if(data.type=='Dial')
         {
           var from=data.caller.caller.number;
           from=ids_to_exts[parseInt(from)];
-          if(!from) return;
+          if(!from) from='undefined';
 
           var to  =data.peer.caller.number;
+          if(!to || !svg.select('#phone-'+to).length()) to='undefined';
 
+          var o1=svg.select('#phone-'+from).addClass('active').members[0];
+          var o2=svg.select('#phone-'+to  ).addClass('active').members[0];
 
-          var o1=svg.select('#phone-'+from).show().members[0];
-          var o2=svg.select('#phone-'+to  ).show().members[0];
-
-          if(o1.members.length==0 || o2.members.length==0) return;
+          // if(!  o1 || !o2) return;
           
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
           line.stroke({ color: '#ffffff', width: 1, linecap: 'round' });
 
-          console.log('From '+from+' to '+to);
+           console.log('Dial from '+from+' to '+to);
         }
-        if(data.type=='ChannelConnectedLine')
+        /* if(data.type=='ChannelConnectedLine')
         {
           var from=data.channel.caller.number;
+          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
           var to  =data.channel.connected.number;
+          if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
 
-          var o1=svg.select('#phone-'+from).style('fill','#ffffff').members[0];
-          var o2=svg.select('#phone-'+to  ).style('fill','#ffffff').members[0];
+          var o1=svg.select('#phone-'+from).addClass('active').members[0];
+          var o2=svg.select('#phone-'+to  ).addClass('active').members[0];
           
-          if(!o1 || !o2) return;
+          //if(!o1 || !o2) return;
 
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
           line.stroke({ color: '#f06', width: 3, linecap: 'round' });
 
-          console.log('From '+from+' to '+to);
-        }
+          console.log('Connected from '+from+' to '+to);
+        }*/
         if(data.type=='ChannelHangupRequest')
         {
           var from=data.channel.caller.number;
           from=ids_to_exts[parseInt(from)];
-          if(!from) return;
+          if(!from) from='undefined';
           var to  =data.channel.dialplan.exten;
+          if(!to) to='undefined';
 
-          svg.select('#phone-'+from).style('fill','#00ff00');
-          svg.select('#phone-'+to  ).style('fill','#00ff00');
+          svg.select('#phone-'+from).removeClass('active');
+          svg.select('#phone-'+to  ).removeClass('active');
 
           var lines=svg.select("#line_"+from+"_"+to);
           for(var line of lines.members) line.remove();
           var lines=svg.select("#line_"+to+"_"+from);
           for(var line of lines.members) line.remove();
 
-          console.log('From '+from+' to '+to);
+          console.log('Hangup from '+from+' to '+to);
         }
-      });
- 
+      }
+      function open_socket(){
+        var ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
+        var messages=document.getElementById('messages');
+        ws.addEventListener('close',function()
+        {
+          // on close, try to repoen again 1s later
+          setTimeout(open_socket,1000);
+        });
+        ws.addEventListener('message',message_handler);
+     }; 
+    open_socket();
 
     window.addEventListener('load',function(){
       svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
-      svg.select('ellipse').style('fill','#000000');
+      svg.select('ellipse').style('fill','');
 
       get('http://192.168.179.2/cgi-bin/extensions',function(response){
         ids_to_exts=JSON.parse(response);
@@ -121,10 +131,12 @@
         var json=response;
         var devices=JSON.parse(json);
         for(var device of devices){
-          console.log("Device "+device.resource+" "+device.state);
+          // console.log("Device "+device.resource+" "+device.state);
           var ext=ids_to_exts[parseInt(device.resource)];
-          if(ext){
-            svg.select('#phone-'+ext).style('fill',device.state=='online' ? '#00ff00' : '#ff0000');
+          if(ext){            
+            var elem=svg.select('#phone-'+ext);
+            elem.removeClass('unknown').removeClass('online').removeClass('offline');
+            elem.addClass(device.state);
           }
         }
       });
