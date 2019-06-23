@@ -9,6 +9,7 @@
       padding:0;
       margin: 0;
       cursor: crosshair !important;
+      zoom:0.89;
     }
     body{
 /*      transform-origin: 50vh 50vh;
@@ -96,7 +97,7 @@
       svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
       svg.select('ellipse').style('fill','#000000');
 
-      get('https://192.168.179.2/cgi-bin/extensions',function(response){
+      get('http://192.168.179.2/cgi-bin/extensions',function(response){
         ids_to_exts=JSON.parse(response);
         update_states();
       });
@@ -106,6 +107,7 @@
     function get(url,callback){
       var xmlHttp=new XMLHttpRequest();
       xmlHttp.open('GET', url, true);
+      xmlHttp.setRequestHeader("Authorization", "Basic " + btoa("paul:<PASSWORD HERE>"));
       xmlHttp.onreadystatechange = function () {
           if (xmlHttp.readyState == 4) {
             callback(xmlHttp.responseText);
