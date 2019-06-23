@@ -34,16 +34,21 @@
       var lines={};
 
       function message_handler(msg){
-        messages.value+=msg.data+"\n";
+        // messages.value+=msg.data+"\n";
         var data=JSON.parse(msg.data);
+
+        console.log(data);
+      
         if(data.type=='Dial')
         {
           var from=data.caller.caller.number;
-          from=ids_to_exts[parseInt(from)];
-          if(!from) from='undefined';
-
           var to  =data.peer.caller.number;
-          if(!to || !svg.select('#phone-'+to).length()) to='undefined';
+
+          console.log('Dial from '+from+' to '+to);
+
+          from=ids_to_exts[parseInt(from)];
+          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
+          if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
 
           var o1=svg.select('#phone-'+from).addClass('active').members[0];
           var o2=svg.select('#phone-'+to  ).addClass('active').members[0];
@@ -53,15 +58,18 @@
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
           line.stroke({ color: '#ffffff', width: 1, linecap: 'round' });
 
-           console.log('Dial from '+from+' to '+to);
+
         }
-        /* if(data.type=='ChannelConnectedLine')
+        if(data.type=='ChannelConnectedLine')
         {
           var from=data.channel.caller.number;
-          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
           var to  =data.channel.connected.number;
-          if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
 
+          console.log('Connected from '+from+' to '+to);
+
+//          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
+//          if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
+/*
           var o1=svg.select('#phone-'+from).addClass('active').members[0];
           var o2=svg.select('#phone-'+to  ).addClass('active').members[0];
           
@@ -69,16 +77,17 @@
 
           var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
           line.stroke({ color: '#f06', width: 3, linecap: 'round' });
-
-          console.log('Connected from '+from+' to '+to);
-        }*/
+*/
+        }
         if(data.type=='ChannelHangupRequest')
         {
           var from=data.channel.caller.number;
-          from=ids_to_exts[parseInt(from)];
-          if(!from) from='undefined';
           var to  =data.channel.dialplan.exten;
-          if(!to) to='undefined';
+
+          from=ids_to_exts[parseInt(from)];
+          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
+          if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
+          console.log('Hangup from '+from+' to '+to);
 
           svg.select('#phone-'+from).removeClass('active');
           svg.select('#phone-'+to  ).removeClass('active');
@@ -88,11 +97,11 @@
           var lines=svg.select("#line_"+to+"_"+from);
           for(var line of lines.members) line.remove();
 
-          console.log('Hangup from '+from+' to '+to);
         }
       }
+      var ws;
       function open_socket(){
-        var ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
+        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
         var messages=document.getElementById('messages');
         ws.addEventListener('close',function()
         {
