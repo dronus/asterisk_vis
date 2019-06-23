@@ -1,11 +1,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>PDF.js viewer</title>
+    <title>Asterisk Connection Map</title>
     <script src="pdf.js"></script>
     <script src="svg.js"></script>
-    <script src="ids_to_exts.js"></script>
-
     <style>
     body,html,*{
       padding:0;
@@ -43,7 +41,7 @@
         if(data.type=='Dial')
         {
           var from=data.caller.caller.number;
-          from=ids_to_exts[from];
+          from=ids_to_exts[parseInt(from)];
           if(!from) return;
 
           var to  =data.peer.caller.number;
@@ -77,7 +75,7 @@
         if(data.type=='ChannelHangupRequest')
         {
           var from=data.channel.caller.number;
-          from=ids_to_exts[from];
+          from=ids_to_exts[parseInt(from)];
           if(!from) return;
           var to  =data.channel.dialplan.exten;
 
@@ -97,26 +95,38 @@
     window.addEventListener('load',function(){
       svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
       svg.select('ellipse').style('fill','#000000');
-      get_states();
+
+      get('https://192.168.179.2/cgi-bin/extensions',function(response){
+        ids_to_exts=JSON.parse(response);
+        update_states();
+      });
     });
 
-    function get_states(){
+
+    function get(url,callback){
       var xmlHttp=new XMLHttpRequest();
-      xmlHttp.open('GET', 'http://192.168.179.2:8088/asterisk/ari/endpoints', true);
+      xmlHttp.open('GET', url, true);
       xmlHttp.onreadystatechange = function () {
           if (xmlHttp.readyState == 4) {
-              var json=xmlHttp.responseText;
-              var devices=JSON.parse(json);
-              for(var device of devices){
-                console.log("Device "+device.resource+" "+device.state);
-                var ext=ids_to_exts[device.resource];
-                if(ext){
-                  svg.select('#phone-'+ext).style('fill',device.state=='online' ? '#00ff00' : (device.state=='unknown' ? '#ffff00' : '#ff0000'));
-                }
-              }
+            callback(xmlHttp.responseText);
           }
       };
       xmlHttp.send(null);
+    }
+
+    function update_states(){
+      get('http://192.168.179.2:8088/asterisk/ari/endpoints',function(response){
+        var json=response;
+        var devices=JSON.parse(json);
+        for(var device of devices){
+          console.log("Device "+device.resource+" "+device.state);
+          var ext=ids_to_exts[parseInt(device.resource)];
+          if(ext){
+            svg.select('#phone-'+ext).style('fill',device.state=='online' ? '#00ff00' : '#ff0000');
+          }
+        }
+      });
+      setTimeout(update_states,5000);
     }
 
     </script>
