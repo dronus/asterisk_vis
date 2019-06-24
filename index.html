@@ -33,12 +33,35 @@
       var svg=null; 
       var lines={};
 
+      var lines_by_ext={};
+
+      function line_add(a,b,thickness){
+        line_remove(a,b);
+
+        var o1=svg.select('#phone-'+a).members[0];
+        var o2=svg.select('#phone-'+b).members[0];
+
+        if(!o1 || !o2) return;
+
+        var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+a+"_"+b);
+        line.stroke({ color: '#ffffff', width: thickness, linecap: 'round' });
+      }
+      function line_remove(a,b){
+        var lines=svg.select("#line_"+a+"_"+b);
+        for(var line of lines.members) line.remove();
+        var lines=svg.select("#line_"+b+"_"+a);
+        for(var line of lines.members) line.remove();
+      }
+
       function message_handler(msg){
         // messages.value+=msg.data+"\n";
         var data=JSON.parse(msg.data);
 
+       //if(data.type=="PeerStatusChange") return;
+
         console.log(data);
       
+        
         if(data.type=='Dial')
         {
           var from=data.caller.caller.number;
@@ -47,7 +70,7 @@
           console.log('Dial from '+from+' to '+to);
 
           from=ids_to_exts[parseInt(from)];
-          if(!from || !svg.select('#phone-'+from).length()) from='undefined';
+          if(!from || !svg.select('#phone-'+from).length()) return; // from='undefined';
           if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
 
           var o1=svg.select('#phone-'+from).addClass('active').members[0];
@@ -55,11 +78,32 @@
 
           // if(!  o1 || !o2) return;
           
-          var line=svg.line(o1.cx(),o1.cy(),o2.cx(),o2.cy()).attr('id',"line_"+from+"_"+to);
-          line.stroke({ color: '#ffffff', width: 1, linecap: 'round' });
-
-
+          line_add(from,to,2);          
         }
+
+
+      if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
+        {
+
+          var from=data.channel.caller.number;
+          var to  =data.channel.connected.number;
+
+          console.log('ChannelEnteredBridge from '+from+' to '+to);
+
+          from=ids_to_exts[parseInt(from)];
+          if(!from || !svg.select('#phone-'+from).length()) return; //from='undefined';
+          if(!to   || !svg.select('#phone-'+to  ).length()) return; //to  ='undefined';
+
+          var o1=svg.select('#phone-'+from).addClass('active').members[0];
+          var o2=svg.select('#phone-'+to  ).addClass('active').members[0];
+
+          // if(!  o1 || !o2) return;
+
+          line_add(from,to,2);          
+//          lines_by_ext[from]=line;
+//          lines_by_ext[to  ]=line;
+        }
+
         if(data.type=='ChannelConnectedLine')
         {
           var from=data.channel.caller.number;
@@ -79,33 +123,36 @@
           line.stroke({ color: '#f06', width: 3, linecap: 'round' });
 */
         }
+
+
+
+
         if(data.type=='ChannelHangupRequest')
         {
           var from=data.channel.caller.number;
-          var to  =data.channel.dialplan.exten;
+          var to  = data.channel.connected.number ? data.channel.connected.number : data.channel.dialplan.exten;
 
-          from=ids_to_exts[parseInt(from)];
+          if(ids_to_exts[parseInt(from)])  from=ids_to_exts[parseInt(from)];
+
           if(!from || !svg.select('#phone-'+from).length()) from='undefined';
           if(!to   || !svg.select('#phone-'+to  ).length()) to  ='undefined';
           console.log('Hangup from '+from+' to '+to);
 
           svg.select('#phone-'+from).removeClass('active');
           svg.select('#phone-'+to  ).removeClass('active');
-
-          var lines=svg.select("#line_"+from+"_"+to);
-          for(var line of lines.members) line.remove();
-          var lines=svg.select("#line_"+to+"_"+from);
-          for(var line of lines.members) line.remove();
-
+  
+          line_remove(from,to);
         }
       }
       var ws;
       function open_socket(){
+        console.log('Opening socket');
         ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
         var messages=document.getElementById('messages');
         ws.addEventListener('close',function()
         {
           // on close, try to repoen again 1s later
+          console.log('Socket closed.');
           setTimeout(open_socket,1000);
         });
         ws.addEventListener('message',message_handler);
