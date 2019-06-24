@@ -30,6 +30,8 @@
 
     <object id=map width=1920 data="cl-map.svg" type="image/svg+xml"></object>
     <script>
+
+      var session_id="asterisk_vis"; //+(""+Math.random()).substring(2);
       var svg=null; 
       var lines={};
 
@@ -147,7 +149,7 @@
       var ws;
       function open_socket(){
         console.log('Opening socket');
-        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app=dialer&subscibeAll=true'); 
+        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app='+session_id+'&subscribeAll=true'); 
         var messages=document.getElementById('messages');
         ws.addEventListener('close',function()
         {
