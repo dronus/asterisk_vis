@@ -83,6 +83,14 @@
   }
   .active{
     fill: #ffffff !important;
+      animation: blink 1.0s  infinite;
+/* step-start 0s */
+   }
+    @keyframes blink {
+      50% {
+        opacity: 0.0;
+      }
+    }
   }
   </style>
   <image
