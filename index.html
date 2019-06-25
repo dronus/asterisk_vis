@@ -8,7 +8,7 @@
       padding:0;
       margin: 0;
       cursor: crosshair !important;
-      zoom:0.89;
+      /* zoom:0.89;*/
     }
     body{
 /*      transform-origin: 50vh 50vh;
@@ -16,6 +16,8 @@
 /*      width: 3200px;
       height: 1080px;*/
       overflow: hidden;
+      background-color: #000;
+      padding-top: 23px;
     }
     #messages{
       position: absolute;
@@ -26,12 +28,12 @@
   </head>
 
   <body>
-    <textarea id=messages></textarea>
+   <!-- <textarea id=messages></textarea> -->
 
-    <object id=map width=1920 data="cl-map.svg" type="image/svg+xml"></object>
+    <object id=map width=1280 data="cl-map.svg" type="image/svg+xml"></object>
     <script>
 
-      var session_id="asterisk_vis"; //+(""+Math.random()).substring(2);
+      var session_id="asterisk_vis_"+(""+Math.random()).substring(2);
       var svg=null; 
       var lines={};
 
@@ -99,7 +101,7 @@
         }
 
 
-      if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
+   /*   if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
         {
 
           var from=data.channel.caller.number;
@@ -114,7 +116,7 @@
 
           line_add(o1,o2,2);
         }
-
+*/
         if(data.type=='ChannelConnectedLine')
         {
           var from=data.channel.caller.number;
