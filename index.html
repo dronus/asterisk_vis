@@ -35,7 +35,18 @@
       var svg=null; 
       var lines={};
 
-      var lines_by_ext={};
+      var ids_to_exts={};
+
+
+      function set_online(online)
+      {
+        if(online){
+          svg.select('#offline').hide();
+        }
+        else {
+          svg.select('#offline').show();
+        }
+      }
 
       function line_add(a,b,thickness){
         line_remove(a,b);
@@ -126,9 +137,6 @@
 */
         }
 
-
-
-
         if(data.type=='ChannelHangupRequest')
         {
           var from=data.channel.caller.number;
@@ -155,24 +163,23 @@
         {
           // on close, try to repoen again 1s later
           console.log('Socket closed.');
+          // setTimeout(open_socket,1000);
+        });
+        /*ws.addEventListener('error',function()
+        {
+          // on close, try to repoen again 1s later
+          console.log('Socket error.');
+          set_online(false);
           setTimeout(open_socket,1000);
+        });*/
+        ws.addEventListener('open',function(){
+           set_online(true);
         });
         ws.addEventListener('message',message_handler);
      }; 
-    open_socket();
-
-    window.addEventListener('load',function(){
-      svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
-      svg.select('ellipse').style('fill','');
-
-      get('http://192.168.179.2/cgi-bin/extensions',function(response){
-        ids_to_exts=JSON.parse(response);
-        update_states();
-      });
-    });
 
 
-    function get(url,callback){
+    function get(url,callback,errorhandler){
       var xmlHttp=new XMLHttpRequest();
       xmlHttp.open('GET', url, true);
       xmlHttp.setRequestHeader("Authorization", "Basic " + btoa("paul:<PASSWORD HERE>"));
@@ -181,12 +188,21 @@
             callback(xmlHttp.responseText);
           }
       };
+      xmlHttp.onerror=errorhandler;
       xmlHttp.send(null);
     }
 
     function update_states(){
       get('http://192.168.179.2:8088/asterisk/ari/endpoints',function(response){
         var json=response;
+        if(!response) return;
+
+        if(!ids_to_exts.length) get('http://192.168.179.2/cgi-bin/extensions',function(response){
+          ids_to_exts=JSON.parse(response);
+        });
+
+        if(!ws || ws.readyState!=1) open_socket();
+
         var devices=JSON.parse(json);
         for(var device of devices){
           // console.log("Device "+device.resource+" "+device.state);
@@ -197,10 +213,20 @@
             elem.addClass(device.state);
           }
         }
+      },function(){
+        // can't fetch, so just close ws to reconnect it too.
+        if(ws) ws.close();
+        set_online(false);
       });
       setTimeout(update_states,5000);
     }
 
+    window.addEventListener('load',function(){
+      svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
+      svg.select('ellipse').style('fill','');
+
+      update_states();
+    });
     </script>
   </body>
 </html>
