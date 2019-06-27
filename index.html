@@ -58,8 +58,16 @@
         var r1=o1.rbox(svg);
         var r2=o2.rbox(svg);
 
-        var line=svg.line(r1.cx,r1.cy,r2.cx,r2.cy).attr('id',"line_"+o1.attr('id')+"_"+o2.attr('id')).attr('class','active');
-        line.stroke({ color: '#ffffff', width: thickness, linecap: 'round' });
+        o1.addClass('active');
+        o2.addClass('active');
+
+        var line=svg.line(r1.cx,r1.cy,r2.cx,r2.cy)
+          .attr('id',"line_"+o1.attr('id')+"_"+o2.attr('id'))
+          .data('terminals',{'o1':o1.attr('id'),'o2':o2.attr('id')})
+          .addClass('active')
+          .addClass('line_terminal_'+o1.attr('id'))
+          .addClass('line_terminal_'+o2.attr('id'))
+          .stroke({ color: '#ffffff', width: thickness, linecap: 'round' });
       }
       function line_remove(o1,o2){
         var lines=svg.select("#line_"+o1.attr('id')+"_"+o2.attr('id'));
@@ -67,6 +75,16 @@
         var lines=svg.select("#line_"+o2.attr('id')+"_"+o1.attr('id'));
         for(var line of lines.members) line.remove();
       }
+      function lines_remove(o1){
+        var lines=svg.select(".line_terminal_"+o1.attr('id'));
+        for(var line of lines.members) {
+          var terminals=line.data('terminals');
+          svg.select('#'+terminals.o1).removeClass('active');
+          svg.select('#'+terminals.o2).removeClass('active');
+          line.remove();
+        }
+      }
+
 
       function get_phone_or_service(ext_or_sip_id){
         var ext = ids_to_exts[ext_or_sip_id] || ext_or_sip_id;
@@ -94,14 +112,12 @@
 
           var o1=get_phone_or_service(from);
           var o2=get_phone_or_service(to);
-          o1.addClass('active');
-          o2.addClass('active');
 
-          line_add(o1,o2,1);
+          line_add(o1,o2,2);
         }
 
 
-   /*   if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
+  /*      if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
         {
 
           var from=data.channel.caller.number;
@@ -111,8 +127,6 @@
 
           var o1=get_phone_or_service(from);
           var o2=get_phone_or_service(to);
-          o1.addClass('active');
-          o2.addClass('active');
 
           line_add(o1,o2,2);
         }
@@ -149,7 +163,9 @@
           o1.removeClass('active');
           o2.removeClass('active');
   
-          line_remove(o1,o2);
+          //line_remove(o1,o2);
+          lines_remove(o1);
+          lines_remove(o2);
         }
       }
       var ws;
