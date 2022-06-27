@@ -94,6 +94,28 @@
         return svg.select('#phone-undefined').members[0];
       }
 
+      function get_from_to(data) {
+          // Dial style
+          // var from=data.caller?.caller?.number;
+          // var to  =data.peer?.caller?.number;
+
+          // Hangup style
+          //var from=data.channel?.caller?.number;
+          // var to  = data.channel?.connected?.number ? data.channel.connected.number : data.channel?.dialplan?.exten;
+
+          // Universal style ?
+          var from=data.caller?.caller?.number;
+          var to  =data.peer?.caller?.number || data.channel?.connected?.number || data.channel?.dialplan?.exten;
+          
+          if(ids_to_exts[from]) from=ids_to_exts[from];
+          if(ids_to_exts[to]  ) from=ids_to_exts[to];
+          
+          if(from=='s') from=undefined;
+          if(to  =='s') to  =undefined;
+          
+          return [from,to];
+      }
+
       function message_handler(msg){
         // messages.value+=msg.data+"\n";
         var data=JSON.parse(msg.data);
@@ -109,10 +131,9 @@
         
         if(data.type=='Dial')
         {
-          var from=data.caller?.caller?.number;
-          var to  =data.peer?.caller?.number;
+          var [from,to]=get_from_to(data);
 
-          if(!from || !to || from=='s' || to=='s') return;
+          if(!from || !to) return;
 
           console.log('Dial from '+from+' to '+to);
 
@@ -122,25 +143,11 @@
           line_add(o1,o2,2);
         }
 
-
-  /*      if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
-        {
-
-          var from=data.channel?.caller?.number;
-          var to  =data.channel?.connected?.number;
-
-          console.log('ChannelEnteredBridge from '+from+' to '+to);
-
-          var o1=get_phone_or_service(from);
-          var o2=get_phone_or_service(to);
-
-          line_add(o1,o2,2);
-        }
-*/
         if(data.type=='ChannelConnectedLine')
         {
           var from=data.channel?.caller?.number;
           var to  =data.channel?.connected?.number;
+          var[from,to]=get_from_to(data);
 
           console.log('Connected from '+from+' to '+to);
 
@@ -159,8 +166,7 @@
 
         if(data.type=='ChannelHangupRequest')
         {
-          var from=data.channel?.caller?.number;
-          var to  = data.channel?.connected?.number ? data.channel.connected.number : data.channel?.dialplan?.exten;
+          var[from,to]=get_from_to(data);
           console.log('Hangup from '+from+' to '+to);
 
           var o1=get_phone_or_service(from);
