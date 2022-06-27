@@ -100,7 +100,7 @@
 
        //if(data.type=="PeerStatusChange") return;
 
-        // console.log(data);
+        console.log(data);
         // let extension = data?.channel?.dialplan?.exten;
         // console.log("Extension: "+extension);
         
@@ -109,8 +109,10 @@
         
         if(data.type=='Dial')
         {
-          var from=data.caller.caller.number;
-          var to  =data.peer.caller.number;
+          var from=data.caller?.caller?.number;
+          var to  =data.peer?.caller?.number;
+
+          if(!from || !to || from=='s' || to=='s') return;
 
           console.log('Dial from '+from+' to '+to);
 
@@ -124,8 +126,8 @@
   /*      if(data.type=='ChannelEnteredBridge' && data.bridge.channels.length==2)
         {
 
-          var from=data.channel.caller.number;
-          var to  =data.channel.connected.number;
+          var from=data.channel?.caller?.number;
+          var to  =data.channel?.connected?.number;
 
           console.log('ChannelEnteredBridge from '+from+' to '+to);
 
@@ -137,8 +139,8 @@
 */
         if(data.type=='ChannelConnectedLine')
         {
-          var from=data.channel.caller.number;
-          var to  =data.channel.connected.number;
+          var from=data.channel?.caller?.number;
+          var to  =data.channel?.connected?.number;
 
           console.log('Connected from '+from+' to '+to);
 
@@ -157,8 +159,8 @@
 
         if(data.type=='ChannelHangupRequest')
         {
-          var from=data.channel.caller.number;
-          var to  = data.channel.connected.number ? data.channel.connected.number : data.channel.dialplan.exten;
+          var from=data.channel?.caller?.number;
+          var to  = data.channel?.connected?.number ? data.channel.connected.number : data.channel?.dialplan?.exten;
           console.log('Hangup from '+from+' to '+to);
 
           var o1=get_phone_or_service(from);
