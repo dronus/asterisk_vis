@@ -29,8 +29,8 @@
      id="namedview24"
      showgrid="false"
      inkscape:zoom="0.92026621"
-     inkscape:cx="922.01977"
-     inkscape:cy="235.79598"
+     inkscape:cx="343.38286"
+     inkscape:cy="757.38418"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -103,34 +103,34 @@
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/karte.png"
      xlink:href="plakat_neu/karte.png"
-     style="opacity:1"
-     width="1940.465"
-     height="1180.2661"
-     preserveAspectRatio="none"
-     id="image5509"
-     x="-340.93701"
+     sodipodi:insensitive="true"
      y="58.617802"
-     sodipodi:insensitive="true" />
+     x="-340.93701"
+     id="image5509"
+     preserveAspectRatio="none"
+     height="1180.2661"
+     width="1940.465"
+     style="opacity:1" />
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/services.png"
      xlink:href="plakat_neu/services.png"
-     sodipodi:insensitive="true"
-     width="1017.0913"
-     height="530.92169"
-     preserveAspectRatio="none"
-     id="image5531"
+     y="494.98038"
      x="265.13715"
-     y="494.98038" />
+     id="image5531"
+     preserveAspectRatio="none"
+     height="530.92169"
+     width="1017.0913"
+     sodipodi:insensitive="true" />
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/referenz.png"
      xlink:href="plakat_neu/referenz.png"
-     style="display:none;opacity:0.68999999"
-     width="2632.6162"
-     height="1273.8025"
-     preserveAspectRatio="none"
-     id="image5553"
+     y="-5.720459"
      x="-661.34814"
-     y="-5.720459" />
+     id="image5553"
+     preserveAspectRatio="none"
+     height="1273.8025"
+     width="2632.6162"
+     style="display:none;opacity:0.68999999" />
   <ellipse
      ry="11.653776"
      rx="11.923106"
@@ -548,14 +548,14 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-     x="384.07245"
-     y="307.34476"
+     x="398.19879"
+     y="308.4314"
      id="text4794-79"><tspan
        sodipodi:role="line"
        id="tspan4792-36"
-       x="384.07245"
-       y="307.34476"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers">Wüstenfön</tspan></text>
+       x="398.19879"
+       y="308.4314"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers">Central Station</tspan></text>
   <text
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
