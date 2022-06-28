@@ -37,8 +37,11 @@
       var svg=null; 
       var lines={};
 
-      var ids_to_exts={};
+      var ids_to_exts=JSON.parse(localStorage['ids_to_exts'] || "{}");
 
+      function count(key) {
+        localStorage['count_'+key] = parseInt( localStorage['count_'+key] || 0 ) + 1;
+      }
 
       function set_online(online)
       {
@@ -118,6 +121,11 @@
           return [from,to];
       }
 
+      function validDial(from,to) {
+        if(from.match(/2[0-9][0-9]/)) return false;
+        return true;
+      }
+
       // events_by_channel={};
       function message_handler(msg){
         // messages.value+=msg.data+"\n";
@@ -137,6 +145,7 @@
           let v=data.value;
           console.log("Learned "+v+":"+f);
           if(f) ids_to_exts[v]=f;
+          localStorage['ids_to_exts']=JSON.stringify(ids_to_exts);
         }
 
         if(data.type=='Dial')
@@ -145,10 +154,15 @@
 
           if(!from || !to) return;
 
+          //if(!validDial(from,to)) return;
+
           console.log('Dial from '+from+' to '+to);
 
           var o1=get_phone_or_service(from);
           var o2=get_phone_or_service(to);
+
+          count('from_'+from);
+          count('to_'  +to  );
 
           line_add(o1,o2,2);
         }
