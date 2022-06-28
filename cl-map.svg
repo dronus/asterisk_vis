@@ -29,8 +29,8 @@
      id="namedview24"
      showgrid="false"
      inkscape:zoom="0.65072648"
-     inkscape:cx="791.28344"
-     inkscape:cy="535.68724"
+     inkscape:cx="679.8695"
+     inkscape:cy="474.21748"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -103,34 +103,34 @@
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/karte.png"
      xlink:href="plakat_neu/karte.png"
-     sodipodi:insensitive="true"
-     y="58.617802"
-     x="-340.93701"
-     id="image5509"
-     preserveAspectRatio="none"
-     height="1180.2661"
+     style="opacity:1"
      width="1940.465"
-     style="opacity:1" />
+     height="1180.2661"
+     preserveAspectRatio="none"
+     id="image5509"
+     x="-340.93701"
+     y="58.617802"
+     sodipodi:insensitive="true" />
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/services.png"
      xlink:href="plakat_neu/services.png"
-     y="494.98038"
-     x="265.13715"
-     id="image5531"
-     preserveAspectRatio="none"
-     height="530.92169"
+     sodipodi:insensitive="true"
      width="1017.0913"
-     sodipodi:insensitive="true" />
+     height="530.92169"
+     preserveAspectRatio="none"
+     id="image5531"
+     x="265.13715"
+     y="494.98038" />
   <image
      sodipodi:absref="/home/dronus/dev/asterisk_vis/plakat_neu/referenz.png"
      xlink:href="plakat_neu/referenz.png"
-     y="-5.720459"
-     x="-661.34814"
-     id="image5553"
-     preserveAspectRatio="none"
-     height="1273.8025"
+     style="display:none;opacity:0.68999999"
      width="2632.6162"
-     style="display:none;opacity:0.68999999" />
+     height="1273.8025"
+     preserveAspectRatio="none"
+     id="image5553"
+     x="-661.34814"
+     y="-5.720459" />
   <ellipse
      ry="11.653776"
      rx="11.923106"
@@ -424,8 +424,8 @@
   <ellipse
      ry="11.653776"
      rx="11.923106"
-     cx="105.15109"
-     cy="441.56354"
+     cx="78.258087"
+     cy="610.60535"
      id="phone-234"
      style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:27.99051666;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
      inkscape:transform-center-x="-556.30132"
@@ -441,4 +441,141 @@
      ry="17.613287"
      transform="scale(1,-1)"
      inkscape:label="#service-511" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="187.48276"
+     y="144.98244"
+     id="text4794"><tspan
+       sodipodi:role="line"
+       id="tspan4792"
+       x="187.48276"
+       y="144.98244"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Wüstenfön</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="471.98315"
+     y="100.50572"
+     id="text4794-3"><tspan
+       sodipodi:role="line"
+       id="tspan4792-9"
+       x="471.98315"
+       y="100.50572"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Motelphone</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     x="102.70135"
+     y="232.97083"
+     id="text4794-2"><tspan
+       sodipodi:role="line"
+       x="102.70135"
+       y="232.97083"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="tspan4928">Räuberleitung</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="511.1701"
+     y="220.37177"
+     id="text4794-4"><tspan
+       sodipodi:role="line"
+       id="tspan4792-49"
+       x="511.1701"
+       y="220.37177"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Fire Wire</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="833.11798"
+     y="481.61826"
+     id="text4794-9"><tspan
+       sodipodi:role="line"
+       id="tspan4792-3"
+       x="833.11798"
+       y="481.61826"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Antenne Oase</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="523.46405"
+     y="436.28427"
+     id="text4794-94"><tspan
+       sodipodi:role="line"
+       x="523.46405"
+       y="436.28427"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+       id="tspan4936">Konsum Klient</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     x="87.797188"
+     y="466.09265"
+     id="text4794-39"><tspan
+       sodipodi:role="line"
+       id="tspan4792-0"
+       x="87.797188"
+       y="466.09265"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers">QTR Cloud</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="139.25925"
+     y="660.64893"
+     id="text4794-72"><tspan
+       sodipodi:role="line"
+       id="tspan4792-90"
+       x="139.25925"
+       y="660.64893"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Casino</tspan><tspan
+       sodipodi:role="line"
+       x="139.25925"
+       y="700.64893"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';text-align:center;text-anchor:middle;fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+       id="tspan4940">Connection</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="698.65289"
+     y="264.16898"
+     id="text4794-50"><tspan
+       sodipodi:role="line"
+       id="tspan4792-41"
+       x="698.65289"
+       y="264.16898"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers">Nordstern</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     x="384.07245"
+     y="307.34476"
+     id="text4794-79"><tspan
+       sodipodi:role="line"
+       id="tspan4792-36"
+       x="384.07245"
+       y="307.34476"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers">Wüstenfön</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+     x="1022.9059"
+     y="318.72339"
+     id="text4794-21"><tspan
+       sodipodi:role="line"
+       x="1022.9059"
+       y="318.72339"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-opacity:1;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+       id="tspan4932">Baumpanne</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.66666698px;line-height:125%;font-family:serif;-inkscape-font-specification:serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+     x="136.97296"
+     y="351.30014"
+     id="text4794-391"><tspan
+       sodipodi:role="line"
+       id="tspan4792-8"
+       x="136.97296"
+       y="351.30014"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:125%;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers">El Telefonazo</tspan></text>
 </svg>
