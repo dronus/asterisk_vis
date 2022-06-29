@@ -53,7 +53,12 @@
         }
       }
 
-      
+      function has_line(o1,o2) {
+        if(svg.select("#line_"+o1.attr('id')+"_"+o2.attr('id')).members.length) return true;
+        if(svg.select("#line_"+o2.attr('id')+"_"+o1.attr('id')).members.length) return true;
+        return false;
+      }
+
       function line_add(o1,o2,thickness){
         line_remove(o1,o2);
         if(!o1 || !o2) return;
@@ -161,8 +166,10 @@
           var o1=get_phone_or_service(from);
           var o2=get_phone_or_service(to);
 
-          count('from_'+from);
-          count('to_'  +to  );
+          if(!has_line(o1,o2)) {
+            count('from_'+from);
+            count('to_'  +to  );
+          }
 
           line_add(o1,o2,2);
         }
