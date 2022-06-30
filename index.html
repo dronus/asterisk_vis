@@ -41,6 +41,27 @@
 
       function count(key) {
         localStorage['count_'+key] = parseInt( localStorage['count_'+key] || 0 ) + 1;
+        show_service_counts();
+      }
+
+      function show_service_counts() {
+        let services=svg.select('[id^="service-"]');
+        for(let s of services.members){
+          let ext=s.id().replace('service-','');
+          // let count_from=localStorage['count_from_'+ext];
+          let count_to  =localStorage['count_to_'+ext];
+          if(!count_to) continue;
+          let counter=svg.select('#counter-'+ext).first();
+          if(!counter) {
+            var r=s.rbox(svg);
+            counter=svg.text(count_to);
+            counter.attr('style',"font-family: caecilia; fill:#ffffff; stroke: #000; stroke-width: 10; font-size: 30px; paint-order: stroke fill;");          
+            counter.id('counter-'+ext);
+            counter.center(r.cx,r.cy);
+          }
+
+          counter.text(count_to);
+        }
       }
 
       function set_online(online)
