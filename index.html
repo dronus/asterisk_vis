@@ -33,10 +33,14 @@
     <object id=map width=1280 data="cl-map.svg" type="image/svg+xml"></object>
     <script>
 
+      var ws_base_url='ws://192.168.179.2:8088';
+      var http_base_url='http://192.168.179.2:8088';
+
       var session_id="asterisk_vis_"+(""+Math.random()).substring(2);
       var svg=null; 
       var lines={};
       var password='';
+      
 
       var ids_to_exts=JSON.parse(localStorage['ids_to_exts'] || "{}");
 
@@ -215,7 +219,7 @@
       var ws;
       function open_socket(){
         console.log('Opening socket');
-        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:'+password+'&app='+session_id+'&subscribeAll=true'); 
+        ws=new WebSocket(ws_base_url+'/asterisk/ari/events?api_key='+password+'&app='+session_id+'&subscribeAll=true'); 
         var messages=document.getElementById('messages');
         ws.addEventListener('close',function()
         {
@@ -240,7 +244,7 @@
     function get(url,callback,errorhandler){
       var xmlHttp=new XMLHttpRequest();
       xmlHttp.open('GET', url, true);
-      xmlHttp.setRequestHeader("Authorization", "Basic " + btoa("paul:"+password));
+      xmlHttp.setRequestHeader("Authorization", "Basic " + btoa(password));
       xmlHttp.onreadystatechange = function () {
           if (xmlHttp.readyState == 4) {
             callback(xmlHttp.responseText);
@@ -251,7 +255,7 @@
     }
 
     function update_states(){
-      get('http://192.168.179.2:8088/asterisk/ari/endpoints',function(response){
+      get(http_base_url+'/asterisk/ari/endpoints',function(response){
         var json=response;
         if(!response) return;
 
