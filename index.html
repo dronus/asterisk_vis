@@ -36,6 +36,7 @@
       var session_id="asterisk_vis_"+(""+Math.random()).substring(2);
       var svg=null; 
       var lines={};
+      var password='';
 
       var ids_to_exts=JSON.parse(localStorage['ids_to_exts'] || "{}");
 
@@ -214,7 +215,7 @@
       var ws;
       function open_socket(){
         console.log('Opening socket');
-        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:<PASSWORD HERE>&app='+session_id+'&subscribeAll=true'); 
+        ws=new WebSocket('ws://192.168.179.2:8088/asterisk/ari/events?api_key=paul:'+password+'&app='+session_id+'&subscribeAll=true'); 
         var messages=document.getElementById('messages');
         ws.addEventListener('close',function()
         {
@@ -239,7 +240,7 @@
     function get(url,callback,errorhandler){
       var xmlHttp=new XMLHttpRequest();
       xmlHttp.open('GET', url, true);
-      xmlHttp.setRequestHeader("Authorization", "Basic " + btoa("paul:<PASSWORD HERE>"));
+      xmlHttp.setRequestHeader("Authorization", "Basic " + btoa("paul:"+password));
       xmlHttp.onreadystatechange = function () {
           if (xmlHttp.readyState == 4) {
             callback(xmlHttp.responseText);
@@ -277,6 +278,8 @@
       });
       setTimeout(update_states,5000);
     }
+
+    get('password',function(_password){password=_password.trim()});
 
     window.setTimeout(function(){
       svg=SVG.adopt(document.getElementById('map').contentDocument.rootElement);
